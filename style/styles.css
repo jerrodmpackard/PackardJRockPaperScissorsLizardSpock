@@ -1,0 +1,63 @@
+@font-face {
+    font-family: Badaboom;
+    src: url(../Assets/BADABB__.TTF);
+}
+
+@font-face {
+    font-family: WhizBang;
+    src: url(../Assets/WhizBang\ Bold.ttf);
+}
+
+h1 {
+    font-family: Badaboom;
+    color: white;
+    font-size: 96px;
+    -webkit-text-stroke: 5px black;
+}
+
+p {
+    font-family: WhizBang;
+    color: white;
+    -webkit-text-stroke: 4px black;
+}
+
+.fontSize40 {
+    font-size: 40px;
+}
+
+.fontSize48 {
+    font-size: 48px;
+}
+
+.fontSize64 {
+    font-size: 64px;
+}
+
+.whizBang {
+    font-family: WhizBang;
+}
+
+.badaboom {
+    font-family: Badaboom;
+}
+
+body {
+    background-image: url(../assets/4844928.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.buttonFormatting {
+    background: none;
+    border: none;
+}
+
+.iconSize {
+    height: 100px;
+    width: 100px;
+}
+
+.resultsSize {
+    height: 450px;
+    width: 450px;
+}

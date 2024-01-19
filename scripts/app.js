@@ -2,7 +2,13 @@ let player1Choice;
 let playerScore = 0;
 let computerScore = 0;
 let winner = "";
-let roundsPlayed = 1;
+let roundNumber = 1;
+let gameMode = localStorage.getItem("gameMode");
+let computerChoice;
+let numberOfWins;
+let numberOfRounds;
+let roundsPlayed = 0;
+console.log(`Current Game Mode: ${gameMode}`);
 
 document.addEventListener("DOMContentLoaded", function () {
   let rock = document.getElementById("rock");
@@ -67,49 +73,63 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  let roundNumber = document.getElementById("roundNumber");
-  if (roundNumber) {
-    roundNumber.textContent = `Round Number: ${roundsPlayed}`;
+  let roundNum = document.getElementById("roundNum");
+  if (roundNum) {
+    roundNum.textContent = `Round Number: ${roundNumber}`;
   }
 
   let oneRound1P = document.getElementById("oneRound1P");
   if (oneRound1P) {
     oneRound1P.addEventListener("click", function () {
       console.log("Click event triggered!");
-      let userChoice = "OneRound";
-      redirectTo1PGameplay(userChoice);
+      numberOfWins = 1;
+      numberOfRounds = 1;
+      console.log(`Current Game Mode: ${gameMode}`);
+      localStorage.setItem("gameMode", "OneRound");
     });
   }
 
   let bestOf51P = document.getElementById("bestOf51P");
   if (bestOf51P) {
     bestOf51P.addEventListener("click", function () {
-      let userChoice = "BestOf5";
-      redirectTo1PGameplay(userChoice);
+      numberOfWins = 3;
+      numberOfRounds = 5;
+      localStorage.setItem("gameMode", "BestOf5");
     });
   }
 
   let bestOf71P = document.getElementById("bestOf71P");
   if (bestOf71P) {
     bestOf71P.addEventListener("click", function () {
-      let userChoice = "BestOf7";
-      redirectTo1PGameplay(userChoice);
+      numberOfWins = 4;
+      numberOfRounds = 7;
+      localStorage.setItem("gameMode", "BestOf7");
     });
   }
 
 
 
-  function redirectTo1PGameplay(userChoice) {
-    console.log(`Redirecting to 1P Gameplay with choice: ${userChoice}`);
-    let nextPageURL = `http://127.0.0.1:5500/pages/1Player.html?mode=${userChoice}`;
-    window.location.href = nextPageURL;
-  };
+  async function GetCPUChoice() {
+    const promise = await fetch("https://rpslsapi.azurewebsites.net/RPSLS");
 
+    const data = await promise.text();
+
+    computerChoice = data.toLowerCase();
+
+    return computerChoice;
+  }
+
+
+
+  function StartGame(numberOfWins, numberOfRounds) {
+
+
+    OnePlayerGameplay(player1Choice);
+  }
 
 
   function OnePlayerGameplay(player1Choice) {
-    const choices = ["rock", "paper", "scissors", "lizard", "spock"];
-    const computerChoice = choices[Math.floor(Math.random() * choices.length)];
+    GetCPUChoice();
     console.log(`Computer chose ${computerChoice}`);
 
     // playerScore = 0;
@@ -117,55 +137,56 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (player1Choice === computerChoice) {
       // do nothing
+      roundNumber++;
       roundsPlayed++;
     } else if (player1Choice === "rock" && computerChoice === "scissors") {
       playerScore++;
+      roundNumber++;
       roundsPlayed++;
     } else if (player1Choice === "rock" && computerChoice === "lizard") {
       playerScore++;
+      roundNumber++;
       roundsPlayed++;
     } else if (player1Choice === "paper" && computerChoice === "rock") {
       playerScore++;
+      roundNumber++;
       roundsPlayed++;
     } else if (player1Choice === "paper" && computerChoice === "spock") {
       playerScore++;
+      roundNumber++;
       roundsPlayed++;
     } else if (player1Choice === "scissors" && computerChoice === "paper") {
       playerScore++;
+      roundNumber++;
       roundsPlayed++;
     } else if (player1Choice === "scissors" && computerChoice === "lizard") {
       playerScore++;
+      roundNumber++;
       roundsPlayed++;
     } else if (player1Choice === "lizard" && computerChoice === "spock") {
       playerScore++;
+      roundNumber++;
       roundsPlayed++;
     } else if (player1Choice === "lizard" && computerChoice === "paper") {
       playerScore++;
+      roundNumber++;
       roundsPlayed++;
     } else if (player1Choice === "spock" && computerChoice === "scissors") {
       playerScore++;
+      roundNumber++;
       roundsPlayed++;
     } else if (player1Choice === "spock" && computerChoice === "rock") {
       playerScore++;
+      roundNumber++;
       roundsPlayed++;
     } else {
       computerScore++;
+      roundNumber++;
       roundsPlayed++;
     }
 
     console.log(playerScore);
     console.log(computerScore);
-
-    // if (playerScore == 0 && computerScore == 0) {
-    //   winner = "Tie game";
-    //   console.log("Tie game");
-    // } else if (playerScore == 1 && computerScore == 0) {
-    //   winner = "Player 1";
-    //   console.log("Player 1 Wins!");
-    // } else {
-    //   winner = "CPU";
-    //   console.log("Computer Wins!");
-    // }
 
     // let winnerTxt = document.getElementById("winnerTxt");
     // if (winner == "Player 1" || winner == "CPU") {
@@ -179,13 +200,22 @@ document.addEventListener("DOMContentLoaded", function () {
     let cpuScore = document.getElementById("cpuScore");
     cpuScore.textContent = `CPU Score: ${computerScore}`;
 
-    roundNumber.textContent = `Round Number: ${roundsPlayed}`;
+    roundNumber.textContent = `Round Number: ${roundNumber}`;
 
     console.log("----New Round----");
+    console.log(`Current Game Mode: ${gameMode}`);
+    console.log(isGameOver(gameMode));
 
 
+    if (isGameOver(gameMode)) {
+      // redirect user to results page
+      window.location.href = "/pages/1PlayerGameWinner.html";
+      // player1Score = 0;
+      // cpuScore = 0;
+    } else {
+      // keep playing
+    }
 
-    // return winner here? Need to go to winner screen and output winner with image and continue/main menu buttons
   };
 
   function isGameOver(gameMode) {

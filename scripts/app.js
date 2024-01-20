@@ -8,7 +8,11 @@ let computerChoice;
 let numberOfWins;
 let numberOfRounds;
 let roundsPlayed = 0;
+let revealWinner = localStorage.getItem("winner");
+let score1 = localStorage.getItem("playerScore");
+
 console.log(`Current Game Mode: ${gameMode}`);
+console.log(`Score1 is: ${score1}`);
 
 document.addEventListener("DOMContentLoaded", function () {
   let rock = document.getElementById("rock");
@@ -82,8 +86,6 @@ document.addEventListener("DOMContentLoaded", function () {
   if (oneRound1P) {
     oneRound1P.addEventListener("click", function () {
       console.log("Click event triggered!");
-      numberOfWins = 1;
-      numberOfRounds = 1;
       console.log(`Current Game Mode: ${gameMode}`);
       localStorage.setItem("gameMode", "OneRound");
     });
@@ -92,8 +94,6 @@ document.addEventListener("DOMContentLoaded", function () {
   let bestOf51P = document.getElementById("bestOf51P");
   if (bestOf51P) {
     bestOf51P.addEventListener("click", function () {
-      numberOfWins = 3;
-      numberOfRounds = 5;
       localStorage.setItem("gameMode", "BestOf5");
     });
   }
@@ -101,12 +101,22 @@ document.addEventListener("DOMContentLoaded", function () {
   let bestOf71P = document.getElementById("bestOf71P");
   if (bestOf71P) {
     bestOf71P.addEventListener("click", function () {
-      numberOfWins = 4;
-      numberOfRounds = 7;
       localStorage.setItem("gameMode", "BestOf7");
     });
   }
 
+
+  let winnerTxt = document.getElementById("winnerTxt");
+  if (winnerTxt) {
+    if (winner == "Player 1" || winner == "CPU") {
+      winnerTxt.textContent = `${revealWinner} Wins The Game!`;
+      console.log("test1")
+    } else {
+      winnerTxt.textContent = "Tie Game";
+      console.log("test2")
+      console.log(winner);
+    }
+  }
 
 
   async function GetCPUChoice() {
@@ -120,96 +130,134 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 
-
-  function StartGame(numberOfWins, numberOfRounds) {
-
-
-    OnePlayerGameplay(player1Choice);
-  }
-
-
-  function OnePlayerGameplay(player1Choice) {
-    GetCPUChoice();
+  async function OnePlayerGameplay(player1Choice) {
+    await GetCPUChoice();
     console.log(`Computer chose ${computerChoice}`);
 
-    // playerScore = 0;
+    //  playerScore = 0;
     // computerScore = 0;
 
     if (player1Choice === computerChoice) {
       // do nothing
-      roundNumber++;
-      roundsPlayed++;
+      console.log("Tie Game");
     } else if (player1Choice === "rock" && computerChoice === "scissors") {
       playerScore++;
       roundNumber++;
       roundsPlayed++;
+      localStorage.setItem("player1Score", playerScore);
+      console.log("Player wins");
     } else if (player1Choice === "rock" && computerChoice === "lizard") {
       playerScore++;
       roundNumber++;
       roundsPlayed++;
+      localStorage.setItem("player1Score", playerScore);
+      console.log("Player wins");
+
     } else if (player1Choice === "paper" && computerChoice === "rock") {
       playerScore++;
       roundNumber++;
       roundsPlayed++;
+      localStorage.setItem("player1Score", playerScore);
+      console.log("Player wins");
+
     } else if (player1Choice === "paper" && computerChoice === "spock") {
       playerScore++;
       roundNumber++;
       roundsPlayed++;
+      localStorage.setItem("player1Score", playerScore);
+      console.log("Player wins");
+
     } else if (player1Choice === "scissors" && computerChoice === "paper") {
       playerScore++;
       roundNumber++;
       roundsPlayed++;
+      localStorage.setItem("player1Score", playerScore);
+      console.log("Player wins");
+
     } else if (player1Choice === "scissors" && computerChoice === "lizard") {
       playerScore++;
       roundNumber++;
       roundsPlayed++;
+      localStorage.setItem("player1Score", playerScore);
+      console.log("Player wins");
+
     } else if (player1Choice === "lizard" && computerChoice === "spock") {
       playerScore++;
       roundNumber++;
       roundsPlayed++;
+      localStorage.setItem("player1Score", playerScore);
+      console.log("Player wins");
+
     } else if (player1Choice === "lizard" && computerChoice === "paper") {
       playerScore++;
       roundNumber++;
       roundsPlayed++;
+      localStorage.setItem("player1Score", playerScore);
+      console.log("Player wins");
+
     } else if (player1Choice === "spock" && computerChoice === "scissors") {
       playerScore++;
       roundNumber++;
       roundsPlayed++;
+      localStorage.setItem("player1Score", playerScore);
+      console.log("Player wins");
+
     } else if (player1Choice === "spock" && computerChoice === "rock") {
       playerScore++;
       roundNumber++;
       roundsPlayed++;
+      localStorage.setItem("player1Score", playerScore);
+      console.log("Player wins");
+
     } else {
       computerScore++;
       roundNumber++;
       roundsPlayed++;
+      console.log("CPU wins");
     }
 
-    console.log(playerScore);
-    console.log(computerScore);
+    console.log(`Player Score: ${playerScore}`);
+    console.log(`CPU Score: ${computerScore}`);
 
-    // let winnerTxt = document.getElementById("winnerTxt");
-    // if (winner == "Player 1" || winner == "CPU") {
-    //   winnerTxt.innerText = `${winner} Wins The Game!`;
-    // } else {
-    //   winnerTxt.innerText = "Tie Game";
-    // }
 
     let player1Score = document.getElementById("player1Score");
     player1Score.textContent = `Player Score: ${playerScore}`;
+
     let cpuScore = document.getElementById("cpuScore");
     cpuScore.textContent = `CPU Score: ${computerScore}`;
 
-    roundNumber.textContent = `Round Number: ${roundNumber}`;
+    roundNum.textContent = `Round Number: ${roundNumber}`;
 
+
+
+
+    console.log(`Is game over? ${isGameOver(gameMode)}`);
     console.log("----New Round----");
-    console.log(`Current Game Mode: ${gameMode}`);
-    console.log(isGameOver(gameMode));
+    // console.log(`Current Game Mode: ${gameMode}`);
+
+    if (playerScore == computerScore || playerScore == computerScore || playerScore == computerScore) {
+      winner = "Tie Game";
+      localStorage.setItem("winner", "Tie Game");
+      console.log("tie game block")
+    } else if (playerScore > computerScore || playerScore > computerScore || playerScore > computerScore) {
+      winner = "Player 1";
+      localStorage.setItem("winner", "Player 1");
+      console.log("player win block")
+    } else {
+      winner = "CPU";
+      localStorage.setItem("winner", "CPU");
+      console.log("CPU win block")
+    }
+
 
 
     if (isGameOver(gameMode)) {
       // redirect user to results page
+console.log(`PlayerScore is: ${playerScore}`);
+
       window.location.href = "/pages/1PlayerGameWinner.html";
+      let player1ScoreWin = document.getElementById("player1ScoreWin");
+      player1ScoreWin.textContent = `Player Score: ${score1}`;
       // player1Score = 0;
       // cpuScore = 0;
     } else {
@@ -222,9 +270,9 @@ document.addEventListener("DOMContentLoaded", function () {
     if (gameMode === "OneRound") {
       return true;
     } else if (gameMode === "BestOf5") {
-      return (playerScore === 3 && computerScore < 3) || (computerScore === 3 && playerScore < 3) || roundsPlayed === 5;
+      return (playerScore === 3 && computerScore < 3) || (computerScore === 3 && playerScore < 3);
     } else if (gameMode === "BestOf7") {
-      return (playerScore === 4 && computerScore < 4) || (computerScore === 4 && playerScore < 4) || roundsPlayed === 7;
+      return (playerScore === 4 && computerScore < 4) || (computerScore === 4 && playerScore < 4);
     } else {
       return false;
     }

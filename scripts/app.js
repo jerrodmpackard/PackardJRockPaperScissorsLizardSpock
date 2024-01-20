@@ -1,8 +1,8 @@
 let player1Choice;
 let player2Choice;
-let playerScore = 0;
-let playerScoreAgain = 0;
-let computerScore = 0;
+let playerScore = 0; // tracks player 2 score
+let playerScoreAgain = 0; // tracks player 2 score
+let computerScore = 0; // tracks CPU score
 let winner = "";
 let roundNumber = 1;
 let gameMode = localStorage.getItem("gameMode");
@@ -118,6 +118,30 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
+  let shoot2 = document.getElementById("shoot2");
+  if (shoot2) {
+    shoot2.addEventListener("click", function () {
+      if (player1Choice != null && player2Choice != null) {
+        TwoPlayerGameplay(player1Choice, player2Choice);
+        player1Choice = null;
+        player2Choice = null;
+
+        rock.classList.remove("shake");
+        paper.classList.remove("shake");
+        scissors.classList.remove("shake");
+        lizard.classList.remove("shake");
+        spock.classList.remove("shake");
+
+        rock2.classList.remove("shake");
+        paper2.classList.remove("shake");
+        scissors2.classList.remove("shake");
+        lizard2.classList.remove("shake");
+        spock2.classList.remove("shake");
+      } else {
+        alert("Please select an icon before clicking the shoot button.");
+      }
+    });
+  }
 
   let roundNum = document.getElementById("roundNum");
   if (roundNum) {
@@ -132,6 +156,14 @@ document.addEventListener("DOMContentLoaded", function () {
       localStorage.setItem("gameMode", "OneRound");
     });
   }
+  let oneRound2P = document.getElementById("oneRound2P");
+  if (oneRound2P) {
+    oneRound2P.addEventListener("click", function () {
+      console.log("Click event triggered!");
+      console.log(`Current Game Mode: ${gameMode}`);
+      localStorage.setItem("gameMode", "OneRound");
+    });
+  }
 
   let bestOf51P = document.getElementById("bestOf51P");
   if (bestOf51P) {
@@ -139,10 +171,22 @@ document.addEventListener("DOMContentLoaded", function () {
       localStorage.setItem("gameMode", "BestOf5");
     });
   }
+  let bestOf52P = document.getElementById("bestOf52P");
+  if (bestOf52P) {
+    bestOf52P.addEventListener("click", function () {
+      localStorage.setItem("gameMode", "BestOf5");
+    });
+  }
 
   let bestOf71P = document.getElementById("bestOf71P");
   if (bestOf71P) {
     bestOf71P.addEventListener("click", function () {
+      localStorage.setItem("gameMode", "BestOf7");
+    });
+  }
+  let bestOf72P = document.getElementById("bestOf72P");
+  if (bestOf72P) {
+    bestOf72P.addEventListener("click", function () {
       localStorage.setItem("gameMode", "BestOf7");
     });
   }
@@ -295,7 +339,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (isGameOver(gameMode)) {
       // redirect user to results page
-console.log(`PlayerScore is: ${playerScore}`);
+      console.log(`PlayerScore is: ${playerScore}`);
 
       window.location.href = "/pages/1PlayerGameWinner.html";
       let player1ScoreWin = document.getElementById("player1ScoreWin");
@@ -307,6 +351,87 @@ console.log(`PlayerScore is: ${playerScore}`);
     }
 
   };
+
+  function TwoPlayerGameplay(player1Choice, player2Choice){
+    if (player1Choice === player2Choice) {
+      // do nothing
+      console.log("Tie Game");
+    } else if (player1Choice === "rock" && player2Choice === "scissors") {
+      playerScore++;
+      roundNumber++;
+      roundsPlayed++;
+      localStorage.setItem("player1Score", playerScore);
+      console.log("Player 1 wins");
+    } else if (player1Choice === "rock" && player2Choice === "lizard") {
+      playerScore++;
+      roundNumber++;
+      roundsPlayed++;
+      localStorage.setItem("player1Score", playerScore);
+      console.log("Player 1 wins");
+
+    } else if (player1Choice === "paper" && player2Choice === "rock") {
+      playerScore++;
+      roundNumber++;
+      roundsPlayed++;
+      localStorage.setItem("player1Score", playerScore);
+      console.log("Player 1 wins");
+
+    } else if (player1Choice === "paper" && player2Choice === "spock") {
+      playerScore++;
+      roundNumber++;
+      roundsPlayed++;
+      localStorage.setItem("player1Score", playerScore);
+      console.log("Player 1 wins");
+
+    } else if (player1Choice === "scissors" && player2Choice === "paper") {
+      playerScore++;
+      roundNumber++;
+      roundsPlayed++;
+      localStorage.setItem("player1Score", playerScore);
+      console.log("Player 1 wins");
+
+    } else if (player1Choice === "scissors" && player2Choice === "lizard") {
+      playerScore++;
+      roundNumber++;
+      roundsPlayed++;
+      localStorage.setItem("player1Score", playerScore);
+      console.log("Player 1 wins");
+
+    } else if (player1Choice === "lizard" && player2Choice === "spock") {
+      playerScore++;
+      roundNumber++;
+      roundsPlayed++;
+      localStorage.setItem("player1Score", playerScore);
+      console.log("Player 1 wins");
+
+    } else if (player1Choice === "lizard" && player2Choice === "paper") {
+      playerScore++;
+      roundNumber++;
+      roundsPlayed++;
+      localStorage.setItem("player1Score", playerScore);
+      console.log("Player 1 wins");
+
+    } else if (player1Choice === "spock" && player2Choice === "scissors") {
+      playerScore++;
+      roundNumber++;
+      roundsPlayed++;
+      localStorage.setItem("player1Score", playerScore);
+      console.log("Player 1 wins");
+
+    } else if (player1Choice === "spock" && player2Choice === "rock") {
+      playerScore++;
+      roundNumber++;
+      roundsPlayed++;
+      localStorage.setItem("player1Score", playerScore);
+      console.log("Player 1 wins");
+
+    } else {
+      playerScoreAgain++;
+      roundNumber++;
+      roundsPlayed++;
+      console.log("Player 2 wins");
+    }
+  }
 
   function isGameOver(gameMode) {
     if (gameMode === "OneRound") {

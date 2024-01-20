@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rock Paper Scissors Lizard Spock!</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="../style/styles.css">
+    <link rel="stylesheet" href="../style/wickedcss.min.css">
+</head>
+
+<body>
+    <div class="container text-center">
+        <h1 class="py-5">Rock Paper Scissors Lizard Spock</h1>
+
+        <div class="row">
+            <div class="col">
+                <p class="fontSize64 py-5">Player 1</p>
+            </div>
+            <div class="col">
+                <p class="fontSize64 py-5">Player 2</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <img src="../assets/rock.png" class="iconSize my-4 mx-2" id="rock" alt="Rock">
+                <img src="../assets/paper.png" class="iconSize my-4 mx-2" id="paper" alt="Paper">
+                <img src="../assets/scissors.png" class="iconSize my-4 mx-2" id="scissors" alt="Scissors">
+                <img src="../assets/lizard.png" class="iconSize my-4 mx-2" id="lizard" alt="Lizard">
+                <img src="../assets/spock.png" class="iconSize my-4 mx-2" id="spock" alt="Spock">
+            </div>
+            <div class="col">
+                <img src="../assets/rock.png" class="iconSize my-4 mx-2" id="rock2" alt="Rock">
+                <img src="../assets/paper.png" class="iconSize my-4 mx-2" id="paper2" alt="Paper">
+                <img src="../assets/scissors.png" class="iconSize my-4 mx-2" id="scissors2" alt="Scissors">
+                <img src="../assets/lizard.png" class="iconSize my-4 mx-2" id="lizard2" alt="Lizard">
+                <img src="../assets/spock.png" class="iconSize my-4 mx-2" id="spock2" alt="Spock">
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- <a href=""> -->
+            <button class="fontSize40 buttonFormatting py-4" id="shootBtn">
+                <p>Shoot</p>
+            </button>
+            <!-- </a> -->
+        </div>
+        <div class="row">
+            <div class="col">
+                <p id="player1Score" class="fontSize40 py-5">Player 1 Score: </p>
+            </div>
+            <div class="col">
+                <p id="player2Score" class="fontSize40 py-5">Player 2 Score: </p>
+            </div>
+        </div>
+
+        <p id="roundNum" class="fontSize40 py-4">Round Number: 1</p>
+
+    </div>
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="../scripts/app.js"></script>
+</body>
+
+</html>

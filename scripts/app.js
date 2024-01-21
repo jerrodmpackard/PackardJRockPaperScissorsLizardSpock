@@ -13,6 +13,7 @@ let score1 = localStorage.getItem("playerScore"); // stores the playerScore vari
 
 console.log(`Current Game Mode: ${gameMode}`);
 console.log(`Score1 is: ${score1}`);
+console.log(`playerScore is: ${playerScore}`);
 
 document.addEventListener("DOMContentLoaded", function () { // document.addEventListener checks to see if the DOM element exists before creating event listeners. This helps control console errors when switching between HTML pages in case the element does not exist on that page
   let rock = document.getElementById("rock"); // creates ID for rock and creates event listener to set player 1 choice and add shake class so icon shakes on button click
@@ -192,23 +193,37 @@ document.addEventListener("DOMContentLoaded", function () { // document.addEvent
 
   let winnerTxt = document.getElementById("winnerTxt"); // winnerTxt is the headline of the results page where it should display who wins the game. Or tie game
   // if (winnerTxt) {
+
+
+
+    whoWon();
     function whoWon(){
-      
+      if(winner == "Player 1"){
+        winnerTxt.textContent = "Player 1 Wins The Game!";
+      }else if (winner == "CPU"){
+        winnerTxt.textContent = "CPU Wins The Game!";
+      }else{
+        winnerTxt.textContent = "Player 2 Wins The Game!";
+      }
     }
-  if (winner == "Player 1" || winner == "CPU") {
-    winnerTxt.textContent = `${winner} Wins The Game!`;
-    console.log("test1")
-  }
+
+
+
+
+  // if (winner == "Player 1" || winner == "CPU") {
+  //   winnerTxt.textContent = `${winner} Wins The Game!`;
+  //   console.log("I work 1")
+  // }
   // } else {
   //   winnerTxt.textContent = "Tie Game";
-  //   console.log("test2")
+  //   console.log("I work 2")
   //   console.log(winner);
   // }
   // }
 
   let player1ScoreWin = document.getElementById("player1ScoreWin");
   if (player1ScoreWin) {
-    player1ScoreWin.textContent = `Player 1 Score: ${score1}`;
+    player1ScoreWin.textContent = `Player 1 Score: ${playerScore}`;
   }
 
   let player2ScoreWin = document.getElementById("player2ScoreWin");
@@ -350,7 +365,7 @@ document.addEventListener("DOMContentLoaded", function () { // document.addEvent
 
       window.location.href = "/pages/1PlayerGameWinner.html";
       let player1ScoreWin = document.getElementById("player1ScoreWin"); // MAYBE PULL THIS OUT AND PUT IT ABOVE THE GAMEPLAY FUNCTIONS
-      player1ScoreWin.textContent = `Player Score: ${score1}`;
+      player1ScoreWin.textContent = `Player Score: ${playerScore}`;
       // player1Score = 0;
       // cpuScore = 0;
     } else {

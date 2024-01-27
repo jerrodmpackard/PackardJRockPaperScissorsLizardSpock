@@ -196,16 +196,26 @@ document.addEventListener("DOMContentLoaded", function () { // document.addEvent
 
 
 
-    whoWon();
-    function whoWon(){
-      if(winner == "Player 1"){
+  whoWon();
+  function whoWon() {
+    if (winnerTxt) {
+      winner = localStorage.getItem("winner");
+      console.log(winner);
+      if (winner == "Player 1") {
         winnerTxt.textContent = "Player 1 Wins The Game!";
-      }else if (winner == "CPU"){
+      } else if (winner == "CPU") {
         winnerTxt.textContent = "CPU Wins The Game!";
-      }else{
+      } else {
         winnerTxt.textContent = "Player 2 Wins The Game!";
       }
     }
+  }
+
+  function getScores(){
+    if(player1Score){
+      player
+    }
+  }
 
 
 
@@ -223,6 +233,7 @@ document.addEventListener("DOMContentLoaded", function () { // document.addEvent
 
   let player1ScoreWin = document.getElementById("player1ScoreWin");
   if (player1ScoreWin) {
+    localStorage.getItem("player1Score");
     player1ScoreWin.textContent = `Player 1 Score: ${playerScore}`;
   }
 
@@ -335,6 +346,7 @@ document.addEventListener("DOMContentLoaded", function () { // document.addEvent
 
 
     let player1Score = document.getElementById("player1Score"); // this shows the player 1 score on the gameplay screen
+    localStorage.getItem("player1Score");
     player1Score.textContent = `Player Score: ${playerScore}`;
 
     let cpuScore = document.getElementById("cpuScore"); // this shows the CPU score on the gameplay screen
